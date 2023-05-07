@@ -11,11 +11,11 @@ import (
 
 func main() {
 	cnf := config.LoadConfigOrPanic()
-	server := server.NewHttpServer(cnf)
+	server := server.NewHttpServer(cnf.Server)
 	server.HandlerFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("hello world!"))
 	})
-	fmt.Printf("starting server on %s:%d", cnf.Host, cnf.Port)
+	fmt.Printf("starting server on %s:%d", cnf.Server.Host, cnf.Server.Port)
 	if err := server.StartServer(); err != nil{
 		log.Println("error starting server")
 	}
